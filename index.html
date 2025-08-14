@@ -1,361 +1,119 @@
-<!DOCTYPE html><html lang="en">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>🇮🇳 Independence Day Wishes – Card Generator (79th)</title>
-  <meta name="description" content="Create and share custom Indian Independence Day greeting cards with your name and photo. Download PNG or share to WhatsApp with a formal message." />
-  <meta property="og:title" content="Create Your Independence Day Card" />
-  <meta property="og:description" content="Generate a beautiful tricolour card with your name & photo. Download or share to WhatsApp in one tap." />
-  <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#138808" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='56' fill='%23fff'/%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23000F7E' stroke-width='6'/%3E%3Cg stroke='%23000F7E' stroke-width='4'%3E%3Cline x1='60' y1='20' x2='60' y2='100'/%3E%3Cline x1='20' y1='60' x2='100' y2='60'/%3E%3Cline x1='33' y1='33' x2='87' y2='87'/%3E%3Cline x1='33' y1='87' x2='87' y2='33'/%3E%3C/g%3E%3C/svg%3E" />
-  <style>
-    :root{
-      --saffron:#FF9933; --white:#ffffff; --green:#138808; --navy:#000F7E; --bg:#0f172a;
-      --panel:#0b1020; --text:#e6e8ee; --muted:#98a1b3; --ring: rgba(19,136,8,.45);
-      --radius:18px; --shadow:0 10px 35px rgba(0,0,0,.35);
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Poppins,Arial,sans-serif; color:var(--text); background:
-      radial-gradient(1200px 600px at 10% -10%, rgba(255,153,51,.12), transparent 40%),
-      radial-gradient(900px 600px at 110% 10%, rgba(19,136,8,.14), transparent 42%),
-      var(--bg);
-    }
-    a{color:inherit}header{position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
-  background:rgba(11,16,32,.75); border-bottom:1px solid rgba(255,255,255,.06)}
-.wrap{max-width:1080px; margin:auto; padding:0 16px}
-.row{display:flex; align-items:center; justify-content:space-between; gap:12px}
-.brand{display:flex; align-items:center; gap:10px; font-weight:800}
-.brand-logo{width:36px; height:36px; border-radius:10px; display:grid; place-items:center;
-  background:conic-gradient(from 0deg, var(--saffron) 0 120deg, var(--white) 120deg 240deg, var(--green) 240deg 360deg);
-  box-shadow:var(--shadow); color:#000; font-weight:900}
-nav a{padding:10px 12px; border-radius:10px; text-decoration:none}
-nav a:hover{background:rgba(255,255,255,.08)}
-
-main{padding:40px 0 60px}
-.hero{display:grid; grid-template-columns:1.15fr 1fr; gap:24px; align-items:center}
-@media (max-width:900px){.hero{grid-template-columns:1fr}}
-
-.title{font-size:clamp(26px,4.2vw,48px); line-height:1.06; margin:6px 0 10px}
-.lead{color:var(--muted); font-size:clamp(14px,1.9vw,18px)}
-.badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.15); color:var(--muted)}
-
-.panel{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); box-shadow:var(--shadow)}
-.panel.pad{padding:16px}
-
-.grid{display:grid; gap:14px}
-.grid.two{grid-template-columns:1fr 1fr}
-@media (max-width:700px){.grid.two{grid-template-columns:1fr}}
-
-label{font-size:13px; color:var(--muted)}
-input, textarea, select{width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:var(--text)}
-input[type=file]{padding:10px}
-input:focus, textarea:focus, select:focus{outline:2px solid var(--ring); border-color:transparent}
-.hint{font-size:12px; color:var(--muted)}
-
-.btn{display:inline-flex; gap:8px; align-items:center; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.1); background:transparent; color:var(--text); cursor:pointer}
-.btn.primary{background:linear-gradient(135deg, var(--saffron), var(--green)); color:#001; font-weight:800}
-.btn:disabled{opacity:.55; cursor:not-allowed}
-
-/* Card canvas (DOM) */
-.card-wrap{display:grid; gap:10px}
-.card{width:680px; max-width:100%; aspect-ratio: 16/9; border-radius:22px; overflow:hidden; position:relative; margin:auto;
-  background:linear-gradient(180deg, var(--saffron) 0%, var(--white) 50%, var(--green) 100%); border:1px solid rgba(0,0,0,.1); box-shadow:0 14px 40px rgba(0,0,0,.35)}
-.card-inner{position:absolute; inset:0; display:grid; grid-template-columns:1.6fr .9fr; padding:18px}
-.card .topbar{position:absolute; inset:12px 12px auto; display:flex; justify-content:center; gap:16px; align-items:center}
-.tag{background:#0a65ff; color:#fff; font-weight:800; padding:6px 14px; border-radius:12px}
-.headline{font-weight:900; -webkit-text-stroke:.4px rgba(0,0,0,.25); font-size:clamp(16px,2.3vw,24px)}
-.strap{height:6px; background:linear-gradient(90deg, var(--saffron), var(--white), var(--green)); border-radius:6px}
-
-/* Left column */
-.left{padding:10px 16px 10px 16px; display:grid; align-content:start; gap:8px}
-.name-line{font-size:clamp(18px,2.8vw,28px); font-weight:900; color:#111; text-shadow:0 1px 0 rgba(255,255,255,.6)}
-.id-line{font-size:clamp(14px,2.2vw,22px); font-weight:800; color:#111}
-.motto{position:absolute; bottom:14px; left:20px; right:20px; text-align:center; font-weight:900; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,.6); font-size:clamp(14px,2vw,22px)}
-
-/* Chip */
-.chip{width:86px; height:66px; border-radius:12px; background:linear-gradient(145deg,#f9d77a,#caa54c); box-shadow:inset 0 2px 6px rgba(0,0,0,.25),0 6px 14px rgba(0,0,0,.2); border:1px solid rgba(0,0,0,.2)}
-.chip-lines{position:relative; inset:0; width:100%; height:100%;}
-.chip-lines:before,.chip-lines:after{content:""; position:absolute; inset:28% 12% 28% 12%; border:3px solid rgba(0,0,0,.4); border-radius:10px}
-
-/* Right column */
-.photo-box{position:relative; border-radius:16px; border:3px solid #ff7e39; padding:6px; background:rgba(255,255,255,.6)}
-.photo{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:12px; display:block}
-.stamp{position:absolute; top:-14px; right:-14px; width:66px; height:66px}
-
-.watermark{position:absolute; top:38px; left:calc(50% - 40px); opacity:.18; filter:drop-shadow(0 1px 0 rgba(255,255,255,.8))}
-
-.ashoka{width:60px; height:60px}
-.chakra{stroke:var(--navy)}
-
-.divider{height:10px}
-
-.result{display:none; text-align:center}
-.result img{max-width:100%; border-radius:18px; border:1px solid rgba(255,255,255,.1); box-shadow:var(--shadow)}
-
-footer{padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
-.tiny{font-size:12px}
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Independence Day Card Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0; padding: 0;
+    background: linear-gradient(#FF9933, #fff, #138808);
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    min-height: 100vh;
+  }
+  .desktop-msg { display: none; text-align: center; padding: 20px; }
+  @media (min-width: 768px) {
+    .container { display: none; }
+    .desktop-msg { display: block; }
+  }
+  .container {
+    width: 100%; max-width: 480px; padding: 15px;
+  }
+  h1 { text-align: center; color: navy; margin-bottom: 10px; }
+  .form-group { margin: 10px 0; }
+  label { display: block; font-weight: 600; margin-bottom: 5px; }
+  input {
+    width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;
+  }
+  .card-preview {
+    margin-top: 20px; padding: 10px; border-radius: 15px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-align: center; position: relative;
+  }
+  .card-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #FF9933; margin-bottom: 10px; }
+  .btn { display: inline-block; margin: 10px 5px; padding: 10px 15px; border: none; border-radius: 5px; background: navy; color: white; font-weight: 600; cursor: pointer; }
+  .btn:hover { background: #000060; }
+</style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <div class="row" style="height:64px">
-        <div class="brand"><div class="brand-logo" aria-hidden>🇮🇳</div><span>Independence Day Wishes</span></div>
-        <nav>
-          <a href="#make">Create</a>
-          <a href="#how">How it works</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-      </div>
-    </div>
-  </header>  <main class="wrap">
-    <!-- HERO -->
-    <section class="hero">
-      <div>
-        <div class="badge">15 August 2025 • 79th Independence Day</div>
-        <h1 class="title">Generate a beautiful 🇮🇳 tricolour greeting card with your <em>name & photo</em> — then share to WhatsApp in one tap.</h1>
-        <p class="lead">All features work offline after page load. No data is uploaded to a server — images stay in your browser.</p>
-        <div style="margin-top:14px" class="tiny">Tip: Long names are auto‑fit. Hindi labels are included for authenticity.</div>
-      </div>
-      <div class="panel pad">
-        <div class="grid two">
-          <div>
-            <label for="name">Your Name (will appear on card)</label>
-            <input id="name" placeholder="e.g., J.P. Gupta" maxlength="40" required />
-          </div>
-          <div>
-            <label for="mobile">Mobile (optional – shows as ID or kept private for you)</label>
-            <input id="mobile" inputmode="numeric" pattern="[0-9]{6,15}" placeholder="e.g., 97845xxxxx" />
-          </div>
-          <div>
-            <label for="tagline">Slogan (optional)</label>
-            <input id="tagline" placeholder="सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा" />
-          </div>
-          <div>
-            <label for="photo">Upload Photo (JPG/PNG)</label>
-            <input id="photo" type="file" accept="image/*" />
-            <div class="hint">Square images look best. We’ll auto‑crop to fit.</div>
-          </div>
-        </div>
-        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
-          <button class="btn primary" id="btnPreview">Preview card</button>
-          <button class="btn" id="btnDownload" disabled>Download PNG</button>
-          <button class="btn" id="btnShare" disabled>Share</button>
-          <button class="btn" id="btnWhatsApp" disabled>Share on WhatsApp</button>
-        </div>
-      </div>
-    </section><!-- PREVIEW/CANVAS -->
-<section id="make" class="card-wrap">
-  <div id="card" class="card" aria-label="Card preview">
-    <div class="card-inner">
-      <div class="watermark" aria-hidden>
-        <!-- Simplified India map silhouette -->
-        <svg width="120" viewBox="0 0 310 370" fill="#0b0b0b" xmlns="http://www.w3.org/2000/svg">
-          <path d="M178 7l12 22 19 9 16-6 24 15-18 25 17 21-5 20 13 28-20 10-14 22 5 20 22 13-1 20-18 19 9 24-19 31-15-8-14 10-14-16-25 3-5-20-19-4-14-19-18 6-12-11-9 10-19-12-1-17-18-6 9-22-20-13 6-18 22-7-1-21 17-7 9-23 22 3 15-11 8-19 20-4 7-17 14-3z"/>
-        </svg>
-      </div>
-      <div class="topbar">
-        <span class="headline">“मेरा भारत मेरी पहचान”</span>
-      </div>
-      <div class="left">
-        <div class="strap" aria-hidden></div>
-        <div style="display:flex; align-items:center; gap:10px; margin:8px 0">
-          <!-- Small India map + Chakra badge -->
-          <svg class="ashoka" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <circle cx="60" cy="60" r="56" fill="#fff"/>
-            <circle cx="60" cy="60" r="40" fill="none" stroke="#000F7E" stroke-width="6"/>
-            <!-- 24 spokes -->
-            <g class="chakra" stroke-width="3">
-              <g transform="translate(60,60)">
-                <!-- spokes -->
-                <g id="sp"><line x1="0" y1="-40" x2="0" y2="-6"/></g>
-                <use href="#sp" transform="rotate(15)"/><use href="#sp" transform="rotate(30)"/><use href="#sp" transform="rotate(45)"/>
-                <use href="#sp" transform="rotate(60)"/><use href="#sp" transform="rotate(75)"/><use href="#sp" transform="rotate(90)"/>
-                <use href="#sp" transform="rotate(105)"/><use href="#sp" transform="rotate(120)"/><use href="#sp" transform="rotate(135)"/>
-                <use href="#sp" transform="rotate(150)"/><use href="#sp" transform="rotate(165)"/><use href="#sp" transform="rotate(180)"/>
-                <use href="#sp" transform="rotate(195)"/><use href="#sp" transform="rotate(210)"/><use href="#sp" transform="rotate(225)"/>
-                <use href="#sp" transform="rotate(240)"/><use href="#sp" transform="rotate(255)"/><use href="#sp" transform="rotate(270)"/>
-                <use href="#sp" transform="rotate(285)"/><use href="#sp" transform="rotate(300)"/><use href="#sp" transform="rotate(315)"/>
-                <use href="#sp" transform="rotate(330)"/><use href="#sp" transform="rotate(345)"/>
-              </g>
-            </g>
-          </svg>
-          <div class="tag">ID CARD</div>
-        </div>
-
-        <div class="name-line"><span style="font-weight:800">नाम :</span> <span id="outName">J.P. GUPTA</span></div>
-        <div class="id-line">ID नं: <span id="outId">18598477</span></div>
-
-        <div style="height:12px"></div>
-        <div class="chip"><div class="chip-lines"></div></div>
-
-        <div class="motto" id="outTag">सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा</div>
-      </div>
-
-      <div style="padding:10px 14px; display:grid; align-content:start; gap:8px">
-        <div class="photo-box">
-          <img id="outPhoto" class="photo" alt="Your photo preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Crect width='100%25' height='100%25' fill='%23e5e7eb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%239aa1aa'%3EUpload Photo%3C/text%3E%3C/svg%3E"/>
-          <svg class="stamp" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-            <circle cx="60" cy="60" r="56" fill="none" stroke="#000F7E" stroke-width="6"/>
-            <text x="50%" y="54%" text-anchor="middle" font-size="12" font-weight="800" fill="#000F7E">APPROVED</text>
-            <text x="50%" y="68%" text-anchor="middle" font-size="10" fill="#000F7E">BY INDIA</text>
-          </svg>
-        </div>
-        <div style="text-align:center; font-weight:800; color:#0b1b38">Happy 79th Independence Day</div>
-        <div style="text-align:center; font-size:13px; color:#0b1b38">15 August 2025</div>
-      </div>
-    </div>
+<div class="desktop-msg">
+  <h2>📱 Mobile Only</h2>
+  <p>This site is designed for mobile use only. Please open it on your phone.</p>
+</div>
+<div class="container">
+  <h1>🇮🇳 Independence Day Card</h1>
+  <div class="form-group">
+    <label>Your Name</label>
+    <input type="text" id="name" placeholder="Enter your name">
   </div>
-
-  <div id="result" class="result">
-    <p class="tiny">Your PNG is ready. Long‑press (mobile) or right‑click (desktop) to save if the download button doesn’t start automatically.</p>
-    <img id="resultImg" alt="Generated card image" />
+  <div class="form-group">
+    <label>Mobile (optional)</label>
+    <input type="text" id="mobile" placeholder="Enter mobile number">
   </div>
-</section>
-
-<section id="how" style="margin-top:30px">
-  <div class="panel pad">
-    <h2 style="margin:6px 0 8px">How it works</h2>
-    <ol style="margin:0; padding-left:18px; line-height:1.7">
-      <li>Enter your <strong>Name</strong> and optional <strong>Mobile</strong> (used as ID).</li>
-      <li>Upload your <strong>Photo</strong>.</li>
-      <li>Tap <strong>Preview</strong> to see the card. Then <strong>Download</strong> or <strong>Share</strong>.</li>
-      <li>Sharing adds a formal Independence Day greeting automatically.</li>
-    </ol>
+  <div class="form-group">
+    <label>Upload Photo</label>
+    <input type="file" id="photo" accept="image/*">
   </div>
-</section>
-
-<section id="faq" style="margin-top:14px">
-  <div class="panel pad">
-    <h3 style="margin:6px 0 8px">Privacy</h3>
-    <p class="tiny">Everything is generated in your browser. We don’t upload your photo anywhere.</p>
+  <div id="card" class="card-preview">
+    <img id="preview-img" class="card-img" src="" alt="Photo Preview">
+    <h2 id="preview-name">Your Name</h2>
+    <p id="preview-id">ID: XXXXX</p>
+    <p>सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा</p>
   </div>
-</section>
+  <button class="btn" onclick="generateCard()">Preview Card</button>
+  <button class="btn" onclick="downloadCard()">Download PNG</button>
+  <button class="btn" onclick="shareCard()">Share</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+const nameInput = document.getElementById('name');
+const mobileInput = document.getElementById('mobile');
+const photoInput = document.getElementById('photo');
+const previewName = document.getElementById('preview-name');
+const previewId = document.getElementById('preview-id');
+const previewImg = document.getElementById('preview-img');
 
-  </main>  <footer>
-    <div class="wrap row">
-      <div class="tiny">© <span id="year"></span> Independence Card Maker • Made with ❤️ in India</div>
-      <div class="tiny">Design tip: keep photos bright & centered.</div>
-    </div>
-  </footer>  <!-- html2canvas (CDN) for DOM-to-image export -->  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha256-8QI6z1o0pJExEnQ2m8r8kqS0m0a6m1j3m1h0+2cM5w8=" crossorigin="anonymous"></script>  <script>
-    const el = (id)=>document.getElementById(id);
-    const nameIn = el('name');
-    const mobileIn = el('mobile');
-    const photoIn = el('photo');
-    const tagIn = el('tagline');
+photoInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => previewImg.src = e.target.result;
+    reader.readAsDataURL(file);
+  }
+});
 
-    const outName = el('outName');
-    const outId = el('outId');
-    const outPhoto = el('outPhoto');
-    const outTag = el('outTag');
+function generateCard() {
+  previewName.textContent = nameInput.value || 'Your Name';
+  previewId.textContent = 'ID: ' + (mobileInput.value || Date.now());
+}
 
-    const btnPreview = el('btnPreview');
-    const btnDownload = el('btnDownload');
-    const btnShare = el('btnShare');
-    const btnWhatsApp = el('btnWhatsApp');
+function downloadCard() {
+  html2canvas(document.getElementById('card')).then(canvas => {
+    const link = document.createElement('a');
+    link.download = 'IndependenceCard.png';
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
 
-    // Utilities
-    const sanitize = (s)=> (s||'').toString().replace(/[<>]/g,'').trim();
-
-    function fitName(name){
-      // auto shrink if too long
-      const base = 28; // max size px
-      const len = name.length;
-      const size = len>16 ? Math.max(16, base - (len-16)*0.9) : base;
-      outName.style.fontSize = size + 'px';
-    }
-
-    function generateId(){
-      const m = sanitize(mobileIn.value);
-      if(m && /\d{6,}/.test(m)) return m.replace(/\D/g,'').slice(-8);
-      // fallback: timestamp derived
-      const t = Date.now().toString().slice(-8);
-      return t;
-    }
-
-    // Live update handlers
-    nameIn.addEventListener('input', ()=>{ const n = sanitize(nameIn.value) || 'J.P. GUPTA'; outName.textContent = n; fitName(n); });
-    mobileIn.addEventListener('input', ()=>{ outId.textContent = generateId(); });
-    tagIn.addEventListener('input', ()=>{ outTag.textContent = sanitize(tagIn.value) || 'सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा'; });
-
-    photoIn.addEventListener('change', (e)=>{
-      const file = e.target.files[0];
-      if(!file) return;
-      if(!file.type.startsWith('image/')){ alert('Please upload an image file.'); return; }
-      const reader = new FileReader();
-      reader.onload = (ev)=>{ outPhoto.src = ev.target.result; };
-      reader.readAsDataURL(file);
-    });
-
-    function ensureState(){
-      const n = sanitize(nameIn.value);
-      if(!n){ alert('Please enter your name.'); nameIn.focus(); return false; }
-      outId.textContent = generateId();
-      return true;
-    }
-
-    // Export DOM to PNG
-    async function renderCard(){
-      const node = el('card');
-      const scale = Math.min(2, window.devicePixelRatio || 1.5);
-      const canvas = await html2canvas(node, {backgroundColor: null, scale});
-      return canvas.toDataURL('image/png');
-    }
-
-    function dataUrlToBlob(dataUrl){
-      const arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1];
-      const bstr = atob(arr[1]); let n=bstr.length; const u8arr = new Uint8Array(n);
-      while(n--){u8arr[n]=bstr.charCodeAt(n);} return new Blob([u8arr], {type:mime});
-    }
-
-    async function doPreview(){
-      if(!ensureState()) return;
-      const dataUrl = await renderCard();
-      const img = el('resultImg'); img.src = dataUrl; el('result').style.display = 'block';
-      btnDownload.disabled = false; btnShare.disabled = false; btnWhatsApp.disabled = false;
-      // Auto download on first preview? keep manual to avoid spam.
-      return dataUrl;
-    }
-
-    async function doDownload(){
-      const dataUrl = await renderCard();
-      const a = document.createElement('a');
-      a.href = dataUrl; a.download = `IndependenceCard_${outId.textContent}.png`;
-      document.body.appendChild(a); a.click(); a.remove();
-    }
-
-    async function doShareNative(){
-      const dataUrl = await renderCard();
-      const blob = dataUrlToBlob(dataUrl);
-      const file = new File([blob], `IndependenceCard_${outId.textContent}.png`, {type:'image/png'});
-      const text = `Wishing you a very Happy 79th Independence Day!\nLet’s honour our nation’s past, celebrate its present, and strive for a brighter future.\n🇮🇳 Jai Hind! 🇮🇳`;
-
-      if(navigator.canShare && navigator.canShare({files:[file]})){
-        try{ await navigator.share({title:'Independence Day Wishes', text, files:[file]}); }catch(e){ /* user cancelled */ }
-      }else{
-        alert('Your browser does not support direct share with image. Use the WhatsApp button or download instead.');
+function shareCard() {
+  html2canvas(document.getElementById('card')).then(canvas => {
+    canvas.toBlob(blob => {
+      const file = new File([blob], 'IndependenceCard.png', { type: 'image/png' });
+      const shareData = {
+        files: [file],
+        text: `Wishing you a very Happy 79th Independence Day!\nLet us honour our nation’s past and work for a brighter future.\n🇮🇳 Jai Hind 🇮🇳`,
+        title: 'Happy Independence Day'
+      };
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share(shareData);
+      } else {
+        window.location.href = `https://wa.me/?text=${encodeURIComponent(shareData.text)}`;
       }
-    }
-
-    async function doShareWhatsApp(){
-      // WhatsApp share (text + optional hosted image link). Images from local cannot be attached via URL; we include the message.
-      const msg = `Wishing you a very Happy 79th Independence Day!%0A`+
-                  `Let%E2%80%99s honour our nation%E2%80%99s past, celebrate its present, and strive for a brighter future.%0A`+
-                  `%F0%9F%87%AE%F0%9F%87%B3 Jai Hind! %F0%9F%87%AE%F0%9F%87%B3`;
-      const url = `https://wa.me/?text=${msg}`;
-      window.open(url, '_blank');
-    }
-
-    btnPreview.addEventListener('click', doPreview);
-    btnDownload.addEventListener('click', doDownload);
-    btnShare.addEventListener('click', doShareNative);
-    btnWhatsApp.addEventListener('click', doShareWhatsApp);
-
-    // init
-    document.getElementById('year').textContent = new Date().getFullYear();
-    outId.textContent = generateId();
-  </script></body>
+    });
+  });
+}
+</script>
+</body>
 </html>
+

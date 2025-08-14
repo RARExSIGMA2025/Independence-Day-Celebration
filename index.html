@@ -1,254 +1,361 @@
 <!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Satyadev College — Simple Site</title>
-  <meta name="description" content="A clean, single-page website template in pure HTML, CSS, and a bit of JavaScript." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-size='60' text-anchor='middle'>S</text></svg>">
+  <title>🇮🇳 Independence Day Wishes – Card Generator (79th)</title>
+  <meta name="description" content="Create and share custom Indian Independence Day greeting cards with your name and photo. Download PNG or share to WhatsApp with a formal message." />
+  <meta property="og:title" content="Create Your Independence Day Card" />
+  <meta property="og:description" content="Generate a beautiful tricolour card with your name & photo. Download or share to WhatsApp in one tap." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#138808" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='56' fill='%23fff'/%3E%3Ccircle cx='60' cy='60' r='40' fill='none' stroke='%23000F7E' stroke-width='6'/%3E%3Cg stroke='%23000F7E' stroke-width='4'%3E%3Cline x1='60' y1='20' x2='60' y2='100'/%3E%3Cline x1='20' y1='60' x2='100' y2='60'/%3E%3Cline x1='33' y1='33' x2='87' y2='87'/%3E%3Cline x1='33' y1='87' x2='87' y2='33'/%3E%3C/g%3E%3C/svg%3E" />
   <style>
     :root{
-      --bg: #0f172a; /* slate-900 */
-      --panel: #111827; /* gray-900 */
-      --text: #e5e7eb; /* gray-200 */
-      --muted: #94a3b8; /* slate-400 */
-      --brand: #22c55e; /* green-500 */
-      --brand-2: #06b6d4; /* cyan-500 */
-      --ring: rgba(34,197,94,.4);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 16px;
-    }*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, "Noto Sans", sans-serif;
-  color:var(--text); background: radial-gradient(1200px 700px at 10% -10%, rgba(34,197,94,.08), transparent 40%),
-           radial-gradient(900px 600px at 110% 10%, rgba(6,182,212,.08), transparent 40%), var(--bg);
-}
-
-/* Header */
-header{
-  position:sticky; top:0; z-index:20; backdrop-filter: blur(8px);
-  background: linear-gradient(0deg, rgba(17,24,39,.75), rgba(17,24,39,.75));
-  border-bottom: 1px solid rgba(255,255,255,.06);
-}
-.wrap{max-width:1100px; margin-inline:auto; padding: 0 16px}
+      --saffron:#FF9933; --white:#ffffff; --green:#138808; --navy:#000F7E; --bg:#0f172a;
+      --panel:#0b1020; --text:#e6e8ee; --muted:#98a1b3; --ring: rgba(19,136,8,.45);
+      --radius:18px; --shadow:0 10px 35px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Poppins,Arial,sans-serif; color:var(--text); background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(255,153,51,.12), transparent 40%),
+      radial-gradient(900px 600px at 110% 10%, rgba(19,136,8,.14), transparent 42%),
+      var(--bg);
+    }
+    a{color:inherit}header{position:sticky; top:0; z-index:20; backdrop-filter:blur(10px);
+  background:rgba(11,16,32,.75); border-bottom:1px solid rgba(255,255,255,.06)}
+.wrap{max-width:1080px; margin:auto; padding:0 16px}
 .row{display:flex; align-items:center; justify-content:space-between; gap:12px}
-.brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
-.brand-logo{
-  width:36px; height:36px; display:grid; place-items:center; border-radius:10px;
-  background: linear-gradient(135deg, var(--brand), var(--brand-2));
-  color:#001; font-weight:900; box-shadow: var(--shadow);
-}
+.brand{display:flex; align-items:center; gap:10px; font-weight:800}
+.brand-logo{width:36px; height:36px; border-radius:10px; display:grid; place-items:center;
+  background:conic-gradient(from 0deg, var(--saffron) 0 120deg, var(--white) 120deg 240deg, var(--green) 240deg 360deg);
+  box-shadow:var(--shadow); color:#000; font-weight:900}
+nav a{padding:10px 12px; border-radius:10px; text-decoration:none}
+nav a:hover{background:rgba(255,255,255,.08)}
 
-nav a{color:var(--text); text-decoration:none; padding:10px 12px; border-radius:10px; font-size:14px}
-nav a:hover{background:rgba(255,255,255,.06)}
-.menu{display:flex; gap:6px}
-.menu-btn{display:none}
+main{padding:40px 0 60px}
+.hero{display:grid; grid-template-columns:1.15fr 1fr; gap:24px; align-items:center}
+@media (max-width:900px){.hero{grid-template-columns:1fr}}
 
-@media (max-width:860px){
-  .menu{display:none}
-  .menu.open{display:flex; flex-direction:column; position:absolute; right:16px; top:64px; background:var(--panel); padding:10px; border-radius:12px; box-shadow:var(--shadow); width:min(92vw, 320px)}
-  .menu-btn{display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.08); background:transparent; color:var(--text)}
-}
+.title{font-size:clamp(26px,4.2vw,48px); line-height:1.06; margin:6px 0 10px}
+.lead{color:var(--muted); font-size:clamp(14px,1.9vw,18px)}
+.badge{display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.15); color:var(--muted)}
 
-/* Hero */
-.hero{padding: 80px 0 50px}
-.hero .inner{display:grid; grid-template-columns: 1.2fr 1fr; gap:28px; align-items:center}
-.badge{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-size:12px; color:var(--muted)}
-.title{font-size: clamp(28px, 4.5vw, 56px); line-height:1.04; margin:12px 0}
-.lead{color: var(--muted); font-size: clamp(14px, 2vw, 18px)}
-.cta{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap}
-.btn{display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.08); text-decoration:none; color:var(--text)}
-.btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#002; font-weight:700}
+.panel{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); box-shadow:var(--shadow)}
+.panel.pad{padding:16px}
 
-.card{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow:var(--shadow)}
-.preview{aspect-ratio: 16 / 11; border-radius:var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.06)}
-.preview img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05)}
+.grid{display:grid; gap:14px}
+.grid.two{grid-template-columns:1fr 1fr}
+@media (max-width:700px){.grid.two{grid-template-columns:1fr}}
 
-/* Sections */
-section{padding:60px 0}
-h2{font-size: clamp(22px, 3.5vw, 34px); margin:0 0 10px}
-p{line-height:1.6}
-
-.grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
-.grid-2{display:grid; grid-template-columns: repeat(2, 1fr); gap:16px}
-@media (max-width:860px){
-  .hero .inner{grid-template-columns:1fr}
-  .grid-3, .grid-2{grid-template-columns:1fr}
-}
-
-.feature{padding:18px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
-.feature h3{margin:6px 0 6px; font-size:18px}
-.feature p{margin:0; color:var(--muted)}
-
-/* Gallery */
-.gallery{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px}
-.gallery img{width:100%; height:180px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,.08)}
-@media (max-width:700px){.gallery{grid-template-columns:1fr 1fr}}
-
-/* Contact */
-form{display:grid; gap:12px; margin-top:10px}
-label{font-size:14px; color:var(--muted)}
-input, textarea, select{
-  width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.03); color:var(--text)
-}
+label{font-size:13px; color:var(--muted)}
+input, textarea, select{width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.03); color:var(--text)}
+input[type=file]{padding:10px}
 input:focus, textarea:focus, select:focus{outline:2px solid var(--ring); border-color:transparent}
+.hint{font-size:12px; color:var(--muted)}
 
-/* Footer */
-footer{padding:36px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
-.credits a{color:inherit}
+.btn{display:inline-flex; gap:8px; align-items:center; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.1); background:transparent; color:var(--text); cursor:pointer}
+.btn.primary{background:linear-gradient(135deg, var(--saffron), var(--green)); color:#001; font-weight:800}
+.btn:disabled{opacity:.55; cursor:not-allowed}
+
+/* Card canvas (DOM) */
+.card-wrap{display:grid; gap:10px}
+.card{width:680px; max-width:100%; aspect-ratio: 16/9; border-radius:22px; overflow:hidden; position:relative; margin:auto;
+  background:linear-gradient(180deg, var(--saffron) 0%, var(--white) 50%, var(--green) 100%); border:1px solid rgba(0,0,0,.1); box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.card-inner{position:absolute; inset:0; display:grid; grid-template-columns:1.6fr .9fr; padding:18px}
+.card .topbar{position:absolute; inset:12px 12px auto; display:flex; justify-content:center; gap:16px; align-items:center}
+.tag{background:#0a65ff; color:#fff; font-weight:800; padding:6px 14px; border-radius:12px}
+.headline{font-weight:900; -webkit-text-stroke:.4px rgba(0,0,0,.25); font-size:clamp(16px,2.3vw,24px)}
+.strap{height:6px; background:linear-gradient(90deg, var(--saffron), var(--white), var(--green)); border-radius:6px}
+
+/* Left column */
+.left{padding:10px 16px 10px 16px; display:grid; align-content:start; gap:8px}
+.name-line{font-size:clamp(18px,2.8vw,28px); font-weight:900; color:#111; text-shadow:0 1px 0 rgba(255,255,255,.6)}
+.id-line{font-size:clamp(14px,2.2vw,22px); font-weight:800; color:#111}
+.motto{position:absolute; bottom:14px; left:20px; right:20px; text-align:center; font-weight:900; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,.6); font-size:clamp(14px,2vw,22px)}
+
+/* Chip */
+.chip{width:86px; height:66px; border-radius:12px; background:linear-gradient(145deg,#f9d77a,#caa54c); box-shadow:inset 0 2px 6px rgba(0,0,0,.25),0 6px 14px rgba(0,0,0,.2); border:1px solid rgba(0,0,0,.2)}
+.chip-lines{position:relative; inset:0; width:100%; height:100%;}
+.chip-lines:before,.chip-lines:after{content:""; position:absolute; inset:28% 12% 28% 12%; border:3px solid rgba(0,0,0,.4); border-radius:10px}
+
+/* Right column */
+.photo-box{position:relative; border-radius:16px; border:3px solid #ff7e39; padding:6px; background:rgba(255,255,255,.6)}
+.photo{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:12px; display:block}
+.stamp{position:absolute; top:-14px; right:-14px; width:66px; height:66px}
+
+.watermark{position:absolute; top:38px; left:calc(50% - 40px); opacity:.18; filter:drop-shadow(0 1px 0 rgba(255,255,255,.8))}
+
+.ashoka{width:60px; height:60px}
+.chakra{stroke:var(--navy)}
+
+.divider{height:10px}
+
+.result{display:none; text-align:center}
+.result img{max-width:100%; border-radius:18px; border:1px solid rgba(255,255,255,.1); box-shadow:var(--shadow)}
+
+footer{padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
+.tiny{font-size:12px}
 
   </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
     <div class="wrap">
       <div class="row" style="height:64px">
-        <a class="brand" href="#top" aria-label="Home">
-          <span class="brand-logo" aria-hidden="true">S</span>
-          <span>Satyadev College</span>
-        </a>
-        <button class="menu-btn" aria-expanded="false" aria-controls="navMenu" id="menuBtn">☰ Menu</button>
-        <nav id="navMenu" class="menu" aria-label="Primary">
-          <a href="#about">About</a>
-          <a href="#courses">Courses</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#contact">Contact</a>
+        <div class="brand"><div class="brand-logo" aria-hidden>🇮🇳</div><span>Independence Day Wishes</span></div>
+        <nav>
+          <a href="#make">Create</a>
+          <a href="#how">How it works</a>
+          <a href="#faq">FAQ</a>
         </nav>
       </div>
     </div>
-  </header>  <!-- Hero -->  <main id="top" class="hero">
-    <div class="wrap">
-      <div class="inner">
-        <div>
-          <span class="badge">🎓 Welcome to Satyadev College</span>
-          <h1 class="title">A simple, modern website template you can edit in minutes.</h1>
-          <p class="lead">Built with pure HTML/CSS and a tiny sprinkle of JavaScript. Replace text, drop in your photos, and you’re live.</p>
-          <div class="cta">
-            <a class="btn primary" href="#contact">Get in touch</a>
-            <a class="btn" href="#courses">Browse courses</a>
-          </div>
-        </div>
-        <div class="card preview">
-          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1400&auto=format&fit=crop" alt="Campus building" />
-        </div>
+  </header>  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero">
+      <div>
+        <div class="badge">15 August 2025 • 79th Independence Day</div>
+        <h1 class="title">Generate a beautiful 🇮🇳 tricolour greeting card with your <em>name & photo</em> — then share to WhatsApp in one tap.</h1>
+        <p class="lead">All features work offline after page load. No data is uploaded to a server — images stay in your browser.</p>
+        <div style="margin-top:14px" class="tiny">Tip: Long names are auto‑fit. Hindi labels are included for authenticity.</div>
       </div>
-    </div>
-  </main>  <!-- About -->  <section id="about">
-    <div class="wrap">
-      <h2>About Us</h2>
-      <p>Founded with a focus on quality education and student-first values, Satyadev College offers industry-aligned programs, experienced faculty, and a vibrant campus life. This is placeholder content — change it to your own story.</p>
-      <div class="grid-3" style="margin-top:16px">
-        <div class="feature">
-          <div>🏫</div>
-          <h3>Modern Campus</h3>
-          <p>Smart classrooms, library, and labs to support hands-on learning.</p>
-        </div>
-        <div class="feature">
-          <div>👩‍🏫</div>
-          <h3>Experienced Faculty</h3>
-          <p>Mentors who care about your growth in and beyond the classroom.</p>
-        </div>
-        <div class="feature">
-          <div>🎯</div>
-          <h3>Career Support</h3>
-          <p>Training, internships, and placement assistance for top industries.</p>
-        </div>
-      </div>
-    </div>
-  </section>  <!-- Courses / Services -->  <section id="courses">
-    <div class="wrap">
-      <h2>Programs & Courses</h2>
-      <p>List your departments or flagship programs here. You can also link to PDFs or forms.</p>
-      <div class="grid-2" style="margin-top:16px">
-        <div class="feature">
-          <h3>B.Pharm (Bachelor of Pharmacy)</h3>
-          <p>4-year program focused on pharmaceutical sciences, clinical skills, and research.</p>
-        </div>
-        <div class="feature">
-          <h3>D.Pharm (Diploma in Pharmacy)</h3>
-          <p>2-year diploma preparing students for roles in community and hospital pharmacy.</p>
-        </div>
-        <div class="feature">
-          <h3>Short-Term Skill Courses</h3>
-          <p>Add-on certifications in medical coding, pharmacovigilance, and more.</p>
-        </div>
-        <div class="feature">
-          <h3>Admissions 2025</h3>
-          <p>Download the <a href="#" style="color:var(--brand)">prospectus</a> • <a href="#" style="color:var(--brand)">Apply Now</a></p>
-        </div>
-      </div>
-    </div>
-  </section>  <!-- Gallery -->  <section id="gallery">
-    <div class="wrap">
-      <h2>Gallery</h2>
-      <div class="gallery" style="margin-top:12px">
-        <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1200&auto=format&fit=crop" alt="Students studying together">
-        <img src="https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?q=80&w=1200&auto=format&fit=crop" alt="Laboratory equipment">
-        <img src="https://images.unsplash.com/photo-1523580846011-85a6ca51036c?q=80&w=1200&auto=format&fit=crop" alt="Campus corridor">
-        <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?q=80&w=1200&auto=format&fit=crop" alt="Library shelves">
-        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop" alt="Classroom lecture">
-        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" alt="Campus building">
-      </div>
-    </div>
-  </section>  <!-- Contact -->  <section id="contact">
-    <div class="wrap">
-      <h2>Contact Us</h2>
-      <p>Have questions about admissions or programs? Send us a message.</p>
-      <div class="grid-2" style="margin-top:12px; align-items:start">
-        <form onsubmit="event.preventDefault(); alert('Thanks! Your message has been received.');">
+      <div class="panel pad">
+        <div class="grid two">
           <div>
-            <label for="name">Full Name</label>
-            <input id="name" name="name" placeholder="Your name" required>
+            <label for="name">Your Name (will appear on card)</label>
+            <input id="name" placeholder="e.g., J.P. Gupta" maxlength="40" required />
           </div>
           <div>
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+            <label for="mobile">Mobile (optional – shows as ID or kept private for you)</label>
+            <input id="mobile" inputmode="numeric" pattern="[0-9]{6,15}" placeholder="e.g., 97845xxxxx" />
           </div>
           <div>
-            <label for="program">Interested Program</label>
-            <select id="program" name="program">
-              <option>B.Pharm</option>
-              <option>D.Pharm</option>
-              <option>Short-Term Course</option>
-              <option>Other</option>
-            </select>
+            <label for="tagline">Slogan (optional)</label>
+            <input id="tagline" placeholder="सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा" />
           </div>
           <div>
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="4" placeholder="Type your query..."></textarea>
+            <label for="photo">Upload Photo (JPG/PNG)</label>
+            <input id="photo" type="file" accept="image/*" />
+            <div class="hint">Square images look best. We’ll auto‑crop to fit.</div>
           </div>
-          <button class="btn primary" type="submit">Send Message</button>
-        </form>
-        <div class="card" style="padding:16px">
-          <h3 style="margin-top:0">Campus</h3>
-          <p>
-            Satyadev College<br>
-            Yusufpur, Ghazipur, Uttar Pradesh
-          </p>
-          <p>
-            📞 <a href="tel:+91-8000000000" style="color:var(--text)">+91 80 0000 0000</a><br>
-            ✉️ <a href="mailto:info@satyadevcollege.edu" style="color:var(--text)">info@satyadevcollege.edu</a>
-          </p>
-          <p style="color:var(--muted); font-size:14px">Office Hours: Mon–Sat, 10:00 AM – 4:00 PM</p>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap">
+          <button class="btn primary" id="btnPreview">Preview card</button>
+          <button class="btn" id="btnDownload" disabled>Download PNG</button>
+          <button class="btn" id="btnShare" disabled>Share</button>
+          <button class="btn" id="btnWhatsApp" disabled>Share on WhatsApp</button>
         </div>
       </div>
+    </section><!-- PREVIEW/CANVAS -->
+<section id="make" class="card-wrap">
+  <div id="card" class="card" aria-label="Card preview">
+    <div class="card-inner">
+      <div class="watermark" aria-hidden>
+        <!-- Simplified India map silhouette -->
+        <svg width="120" viewBox="0 0 310 370" fill="#0b0b0b" xmlns="http://www.w3.org/2000/svg">
+          <path d="M178 7l12 22 19 9 16-6 24 15-18 25 17 21-5 20 13 28-20 10-14 22 5 20 22 13-1 20-18 19 9 24-19 31-15-8-14 10-14-16-25 3-5-20-19-4-14-19-18 6-12-11-9 10-19-12-1-17-18-6 9-22-20-13 6-18 22-7-1-21 17-7 9-23 22 3 15-11 8-19 20-4 7-17 14-3z"/>
+        </svg>
+      </div>
+      <div class="topbar">
+        <span class="headline">“मेरा भारत मेरी पहचान”</span>
+      </div>
+      <div class="left">
+        <div class="strap" aria-hidden></div>
+        <div style="display:flex; align-items:center; gap:10px; margin:8px 0">
+          <!-- Small India map + Chakra badge -->
+          <svg class="ashoka" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <circle cx="60" cy="60" r="56" fill="#fff"/>
+            <circle cx="60" cy="60" r="40" fill="none" stroke="#000F7E" stroke-width="6"/>
+            <!-- 24 spokes -->
+            <g class="chakra" stroke-width="3">
+              <g transform="translate(60,60)">
+                <!-- spokes -->
+                <g id="sp"><line x1="0" y1="-40" x2="0" y2="-6"/></g>
+                <use href="#sp" transform="rotate(15)"/><use href="#sp" transform="rotate(30)"/><use href="#sp" transform="rotate(45)"/>
+                <use href="#sp" transform="rotate(60)"/><use href="#sp" transform="rotate(75)"/><use href="#sp" transform="rotate(90)"/>
+                <use href="#sp" transform="rotate(105)"/><use href="#sp" transform="rotate(120)"/><use href="#sp" transform="rotate(135)"/>
+                <use href="#sp" transform="rotate(150)"/><use href="#sp" transform="rotate(165)"/><use href="#sp" transform="rotate(180)"/>
+                <use href="#sp" transform="rotate(195)"/><use href="#sp" transform="rotate(210)"/><use href="#sp" transform="rotate(225)"/>
+                <use href="#sp" transform="rotate(240)"/><use href="#sp" transform="rotate(255)"/><use href="#sp" transform="rotate(270)"/>
+                <use href="#sp" transform="rotate(285)"/><use href="#sp" transform="rotate(300)"/><use href="#sp" transform="rotate(315)"/>
+                <use href="#sp" transform="rotate(330)"/><use href="#sp" transform="rotate(345)"/>
+              </g>
+            </g>
+          </svg>
+          <div class="tag">ID CARD</div>
+        </div>
+
+        <div class="name-line"><span style="font-weight:800">नाम :</span> <span id="outName">J.P. GUPTA</span></div>
+        <div class="id-line">ID नं: <span id="outId">18598477</span></div>
+
+        <div style="height:12px"></div>
+        <div class="chip"><div class="chip-lines"></div></div>
+
+        <div class="motto" id="outTag">सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा</div>
+      </div>
+
+      <div style="padding:10px 14px; display:grid; align-content:start; gap:8px">
+        <div class="photo-box">
+          <img id="outPhoto" class="photo" alt="Your photo preview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'%3E%3Crect width='100%25' height='100%25' fill='%23e5e7eb'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='18' fill='%239aa1aa'%3EUpload Photo%3C/text%3E%3C/svg%3E"/>
+          <svg class="stamp" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+            <circle cx="60" cy="60" r="56" fill="none" stroke="#000F7E" stroke-width="6"/>
+            <text x="50%" y="54%" text-anchor="middle" font-size="12" font-weight="800" fill="#000F7E">APPROVED</text>
+            <text x="50%" y="68%" text-anchor="middle" font-size="10" fill="#000F7E">BY INDIA</text>
+          </svg>
+        </div>
+        <div style="text-align:center; font-weight:800; color:#0b1b38">Happy 79th Independence Day</div>
+        <div style="text-align:center; font-size:13px; color:#0b1b38">15 August 2025</div>
+      </div>
     </div>
-  </section>  <footer>
+  </div>
+
+  <div id="result" class="result">
+    <p class="tiny">Your PNG is ready. Long‑press (mobile) or right‑click (desktop) to save if the download button doesn’t start automatically.</p>
+    <img id="resultImg" alt="Generated card image" />
+  </div>
+</section>
+
+<section id="how" style="margin-top:30px">
+  <div class="panel pad">
+    <h2 style="margin:6px 0 8px">How it works</h2>
+    <ol style="margin:0; padding-left:18px; line-height:1.7">
+      <li>Enter your <strong>Name</strong> and optional <strong>Mobile</strong> (used as ID).</li>
+      <li>Upload your <strong>Photo</strong>.</li>
+      <li>Tap <strong>Preview</strong> to see the card. Then <strong>Download</strong> or <strong>Share</strong>.</li>
+      <li>Sharing adds a formal Independence Day greeting automatically.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="faq" style="margin-top:14px">
+  <div class="panel pad">
+    <h3 style="margin:6px 0 8px">Privacy</h3>
+    <p class="tiny">Everything is generated in your browser. We don’t upload your photo anywhere.</p>
+  </div>
+</section>
+
+  </main>  <footer>
     <div class="wrap row">
-      <div class="credits">© <span id="year"></span> Satyadev College. All rights reserved.</div>
-      <div class="credits">Built with ❤ using plain HTML + CSS.</div>
+      <div class="tiny">© <span id="year"></span> Independence Card Maker • Made with ❤️ in India</div>
+      <div class="tiny">Design tip: keep photos bright & centered.</div>
     </div>
-  </footer>  <script>
-    // Mobile menu toggle
-    const btn = document.getElementById('menuBtn');
-    const nav = document.getElementById('navMenu');
-    btn.addEventListener('click', ()=>{
-      const open = nav.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open);
+  </footer>  <!-- html2canvas (CDN) for DOM-to-image export -->  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha256-8QI6z1o0pJExEnQ2m8r8kqS0m0a6m1j3m1h0+2cM5w8=" crossorigin="anonymous"></script>  <script>
+    const el = (id)=>document.getElementById(id);
+    const nameIn = el('name');
+    const mobileIn = el('mobile');
+    const photoIn = el('photo');
+    const tagIn = el('tagline');
+
+    const outName = el('outName');
+    const outId = el('outId');
+    const outPhoto = el('outPhoto');
+    const outTag = el('outTag');
+
+    const btnPreview = el('btnPreview');
+    const btnDownload = el('btnDownload');
+    const btnShare = el('btnShare');
+    const btnWhatsApp = el('btnWhatsApp');
+
+    // Utilities
+    const sanitize = (s)=> (s||'').toString().replace(/[<>]/g,'').trim();
+
+    function fitName(name){
+      // auto shrink if too long
+      const base = 28; // max size px
+      const len = name.length;
+      const size = len>16 ? Math.max(16, base - (len-16)*0.9) : base;
+      outName.style.fontSize = size + 'px';
+    }
+
+    function generateId(){
+      const m = sanitize(mobileIn.value);
+      if(m && /\d{6,}/.test(m)) return m.replace(/\D/g,'').slice(-8);
+      // fallback: timestamp derived
+      const t = Date.now().toString().slice(-8);
+      return t;
+    }
+
+    // Live update handlers
+    nameIn.addEventListener('input', ()=>{ const n = sanitize(nameIn.value) || 'J.P. GUPTA'; outName.textContent = n; fitName(n); });
+    mobileIn.addEventListener('input', ()=>{ outId.textContent = generateId(); });
+    tagIn.addEventListener('input', ()=>{ outTag.textContent = sanitize(tagIn.value) || 'सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा'; });
+
+    photoIn.addEventListener('change', (e)=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      if(!file.type.startsWith('image/')){ alert('Please upload an image file.'); return; }
+      const reader = new FileReader();
+      reader.onload = (ev)=>{ outPhoto.src = ev.target.result; };
+      reader.readAsDataURL(file);
     });
-    // Year
+
+    function ensureState(){
+      const n = sanitize(nameIn.value);
+      if(!n){ alert('Please enter your name.'); nameIn.focus(); return false; }
+      outId.textContent = generateId();
+      return true;
+    }
+
+    // Export DOM to PNG
+    async function renderCard(){
+      const node = el('card');
+      const scale = Math.min(2, window.devicePixelRatio || 1.5);
+      const canvas = await html2canvas(node, {backgroundColor: null, scale});
+      return canvas.toDataURL('image/png');
+    }
+
+    function dataUrlToBlob(dataUrl){
+      const arr = dataUrl.split(','), mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]); let n=bstr.length; const u8arr = new Uint8Array(n);
+      while(n--){u8arr[n]=bstr.charCodeAt(n);} return new Blob([u8arr], {type:mime});
+    }
+
+    async function doPreview(){
+      if(!ensureState()) return;
+      const dataUrl = await renderCard();
+      const img = el('resultImg'); img.src = dataUrl; el('result').style.display = 'block';
+      btnDownload.disabled = false; btnShare.disabled = false; btnWhatsApp.disabled = false;
+      // Auto download on first preview? keep manual to avoid spam.
+      return dataUrl;
+    }
+
+    async function doDownload(){
+      const dataUrl = await renderCard();
+      const a = document.createElement('a');
+      a.href = dataUrl; a.download = `IndependenceCard_${outId.textContent}.png`;
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+
+    async function doShareNative(){
+      const dataUrl = await renderCard();
+      const blob = dataUrlToBlob(dataUrl);
+      const file = new File([blob], `IndependenceCard_${outId.textContent}.png`, {type:'image/png'});
+      const text = `Wishing you a very Happy 79th Independence Day!\nLet’s honour our nation’s past, celebrate its present, and strive for a brighter future.\n🇮🇳 Jai Hind! 🇮🇳`;
+
+      if(navigator.canShare && navigator.canShare({files:[file]})){
+        try{ await navigator.share({title:'Independence Day Wishes', text, files:[file]}); }catch(e){ /* user cancelled */ }
+      }else{
+        alert('Your browser does not support direct share with image. Use the WhatsApp button or download instead.');
+      }
+    }
+
+    async function doShareWhatsApp(){
+      // WhatsApp share (text + optional hosted image link). Images from local cannot be attached via URL; we include the message.
+      const msg = `Wishing you a very Happy 79th Independence Day!%0A`+
+                  `Let%E2%80%99s honour our nation%E2%80%99s past, celebrate its present, and strive for a brighter future.%0A`+
+                  `%F0%9F%87%AE%F0%9F%87%B3 Jai Hind! %F0%9F%87%AE%F0%9F%87%B3`;
+      const url = `https://wa.me/?text=${msg}`;
+      window.open(url, '_blank');
+    }
+
+    btnPreview.addEventListener('click', doPreview);
+    btnDownload.addEventListener('click', doDownload);
+    btnShare.addEventListener('click', doShareNative);
+    btnWhatsApp.addEventListener('click', doShareWhatsApp);
+
+    // init
     document.getElementById('year').textContent = new Date().getFullYear();
+    outId.textContent = generateId();
   </script></body>
 </html>

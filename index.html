@@ -1,119 +1,528 @@
-
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Independence Day Card Generator</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0; padding: 0;
-    background: linear-gradient(#FF9933, #fff, #138808);
-    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-    min-height: 100vh;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/> 
+  <title>Independence Day Card Maker — Premium (79th)</title>
+
+  <!-- OG meta (set defaults; when hosting, replace image/url) -->
+  <meta property="og:title" content="Create your Independence Day card — 79th" />
+  <meta property="og:description" content="Make & share a professional tricolour greeting card with your name & photo. Jai Hind!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://your-site.example/" />
+  <meta property="og:image" content="https://your-site.example/preview.png" />
+
+  <!-- Fonts & libs -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.css" rel="stylesheet"/>
+  <style>
+  :root{
+    --saffron:#FF9933; --white:#ffffff; --green:#138808; --navy:#0b2a66;
+    --glass: rgba(255,255,255,0.08); --glass-2: rgba(255,255,255,0.06);
+    --muted:#a6b0c2; --bg:#071025;
+    --radius:16px; --shadow: 0 12px 36px rgba(2,6,23,.6);
   }
-  .desktop-msg { display: none; text-align: center; padding: 20px; }
-  @media (min-width: 768px) {
-    .container { display: none; }
-    .desktop-msg { display: block; }
+  *{box-sizing:border-box}
+  html,body{height:100%; margin:0; font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial; background:linear-gradient(180deg,#041028 0%, #071025 60%); color:#e7eefc}
+  /* Mobile only container */
+  .app{max-width:520px; margin:0 auto; min-height:100vh; display:flex; flex-direction:column;}
+  header{padding:12px 16px; position:sticky; top:0; z-index:30; backdrop-filter:blur(8px); background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border-bottom:1px solid rgba(255,255,255,.03); display:flex; align-items:center; gap:12px}
+  .logo{display:flex; gap:10px; align-items:center}
+  .logo .circle{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:conic-gradient(var(--saffron) 0 120deg, var(--white) 120deg 240deg, var(--green) 240deg); color:#022; font-weight:800; box-shadow:var(--shadow)}
+  h1{font-size:16px;margin:0}
+  p.lead{margin:4px 0 0; font-size:12px; color:var(--muted)}
+  main{padding:16px; flex:1; display:grid; gap:14px}
+  /* wave header */
+  .wave-wrap{height:64px; overflow:visible; margin-top:6px}
+  .wave{width:100%; height:64px; display:block}
+  /* layout */
+  .controls{display:grid; gap:10px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); border-radius:14px; padding:12px; border:1px solid rgba(255,255,255,.03)}
+  label{font-size:12px; color:var(--muted); display:block; margin-bottom:6px}
+  input[type="text"], textarea, select{width:100%; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.05); background:rgba(255,255,255,.02); color:var(--text)}
+  textarea{min-height:64px; resize:vertical}
+  .row{display:flex; gap:8px}
+  .col{flex:1}
+  /* Card preview - glassmorphism */
+  .preview-wrap{display:flex; justify-content:center}
+  .card{
+    width:92%; max-width:420px; aspect-ratio: 3/4; border-radius:20px; overflow:hidden; position:relative;
+    background: linear-gradient(180deg, rgba(255,153,51,.95) 0%, rgba(255,255,255,1) 49%, rgba(19,136,8,.95) 100%);
+    box-shadow: var(--shadow); transform-origin:center; transition:transform .35s cubic-bezier(.2,.9,.2,1), opacity .35s;
   }
-  .container {
-    width: 100%; max-width: 480px; padding: 15px;
+  /* rotating chakra */
+  .chakra-wrap{position:absolute; inset:18% 0 40%; display:grid; place-items:center; pointer-events:none; opacity:.12}
+  .chakra{width:160px; height:160px; animation:spin 20s linear infinite}
+  @keyframes spin{from{transform:rotate(0)} to{transform:rotate(360deg)}}
+  /* card inner */
+  .card-inner{position:absolute; inset:0; display:grid; grid-template-columns: 1fr 0.9fr; gap:10px; padding:16px}
+  .left{padding:8px; display:flex; flex-direction:column; gap:8px; justify-content:flex-start}
+  .small-tag{display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(0,0,0,.06); color:#071025; font-weight:700; width:max-content}
+  .title-large{font-weight:800; font-size:20px; color:#071025; text-transform:uppercase; letter-spacing:0.6px}
+  .id-row{display:flex; gap:8px; align-items:center; color:#071025; font-weight:700}
+  .motto{position:absolute; bottom:14px; left:10px; right:10px; text-align:center; font-weight:800; color:#fff; text-shadow:0 6px 18px rgba(0,0,0,.4)}
+  .chip{width:76px; height:58px; border-radius:12px; background:linear-gradient(145deg,#ffe2a0,#cbb06a); box-shadow:inset 0 3px 8px rgba(0,0,0,.15)}
+  .right{display:flex; align-items:center; justify-content:center; padding:6px}
+  .photo-frame{width:100%; max-width:180px; aspect-ratio:3/4; background:rgba(255,255,255,.9); border-radius:12px; padding:6px; display:grid; place-items:center}
+  .photo{width:100%; height:100%; object-fit:cover; border-radius:8px}
+  .stamp{position:absolute; top:10px; right:10px; width:62px; height:62px; transform:rotate(-10deg)}
+  /* animation on generate */
+  .card.fly-in{transform:translateY(-6px) scale(.98); opacity:0.98}
+  .card.zoom{transform:scale(1.015)}
+  /* action bar sticky bottom (mobile app feel) */
+  .action-bar{position:sticky; bottom:12px; display:flex; gap:10px; padding:10px; background:linear-gradient(180deg, rgba(2,8,18,.4), rgba(2,8,18,.6)); border-radius:14px; justify-content:center; align-items:center; border:1px solid rgba(255,255,255,.04)}
+  .btn{padding:12px 14px; border-radius:12px; border:0; font-weight:700; color:#052; cursor:pointer}
+  .btn.primary{background:linear-gradient(90deg,var(--saffron),var(--green)); box-shadow:0 8px 24px rgba(19,136,8,.12)}
+  .btn.ghost{background:transparent; border:1px solid rgba(255,255,255,.06); color:var(--muted)}
+  .tiny{font-size:12px; color:var(--muted)}
+  /* theme switch */
+  .themes{display:flex; gap:6px}
+  .theme-dot{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,.06); cursor:pointer}
+  .theme-dot.active{outline:3px solid rgba(255,255,255,.06); transform:translateY(-3px)}
+  /* hidden on desktop; alternative content */
+  .desktop-overlay{display:none}
+  @media (min-width:860px){
+    .app{max-width:900px}
+    .desktop-overlay{position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:linear-gradient(90deg, rgba(2,6,23,.9), rgba(2,6,23,.92)); z-index:9999; flex-direction:column; gap:12px}
+    .desktop-overlay .panel{background:#061226; padding:18px; border-radius:14px; text-align:center}
+    main{max-width:640px;margin:auto}
   }
-  h1 { text-align: center; color: navy; margin-bottom: 10px; }
-  .form-group { margin: 10px 0; }
-  label { display: block; font-weight: 600; margin-bottom: 5px; }
-  input {
-    width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc;
-  }
-  .card-preview {
-    margin-top: 20px; padding: 10px; border-radius: 15px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    text-align: center; position: relative;
-  }
-  .card-img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #FF9933; margin-bottom: 10px; }
-  .btn { display: inline-block; margin: 10px 5px; padding: 10px 15px; border: none; border-radius: 5px; background: navy; color: white; font-weight: 600; cursor: pointer; }
-  .btn:hover { background: #000060; }
-</style>
+  </style>
 </head>
 <body>
-<div class="desktop-msg">
-  <h2>📱 Mobile Only</h2>
-  <p>This site is designed for mobile use only. Please open it on your phone.</p>
-</div>
-<div class="container">
-  <h1>🇮🇳 Independence Day Card</h1>
-  <div class="form-group">
-    <label>Your Name</label>
-    <input type="text" id="name" placeholder="Enter your name">
-  </div>
-  <div class="form-group">
-    <label>Mobile (optional)</label>
-    <input type="text" id="mobile" placeholder="Enter mobile number">
-  </div>
-  <div class="form-group">
-    <label>Upload Photo</label>
-    <input type="file" id="photo" accept="image/*">
-  </div>
-  <div id="card" class="card-preview">
-    <img id="preview-img" class="card-img" src="" alt="Photo Preview">
-    <h2 id="preview-name">Your Name</h2>
-    <p id="preview-id">ID: XXXXX</p>
-    <p>सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा</p>
-  </div>
-  <button class="btn" onclick="generateCard()">Preview Card</button>
-  <button class="btn" onclick="downloadCard()">Download PNG</button>
-  <button class="btn" onclick="shareCard()">Share</button>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<script>
-const nameInput = document.getElementById('name');
-const mobileInput = document.getElementById('mobile');
-const photoInput = document.getElementById('photo');
-const previewName = document.getElementById('preview-name');
-const previewId = document.getElementById('preview-id');
-const previewImg = document.getElementById('preview-img');
+  <div class="app" id="app">
+    <!-- Desktop overlay (shows QR + message) -->
+    <div class="desktop-overlay" id="desktopOverlay" style="display:none">
+      <div class="panel" id="desktopPanel">
+        <h2>📱 Open on your phone</h2>
+        <p class="tiny">This experience is optimized for mobile. Scan the QR below with your phone camera to open this page there.</p>
+        <div id="desktopQR" style="margin-top:12px"></div>
+        <p class="tiny" style="opacity:.8">Or visit: <span id="shortUrl">your-site.example</span></p>
+      </div>
+    </div>
 
-photoInput.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = e => previewImg.src = e.target.result;
-    reader.readAsDataURL(file);
-  }
-});
+    <header>
+      <div class="logo"><div class="circle">🇮🇳</div><div><h1>Independence 79 • Card Maker</h1><p class="lead">Create • Download • Share — Mobile first</p></div></div>
+    </header>
 
-function generateCard() {
-  previewName.textContent = nameInput.value || 'Your Name';
-  previewId.textContent = 'ID: ' + (mobileInput.value || Date.now());
-}
+    <main>
+      <!-- animated tricolour wave -->
+      <div class="wave-wrap" aria-hidden>
+        <svg class="wave" viewBox="0 0 1200 80" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1"><stop offset="0" stop-color="#FF9933"/><stop offset="0.5" stop-color="#fff"/><stop offset="1" stop-color="#138808"/></linearGradient>
+            <filter id="blur"><feGaussianBlur stdDeviation="6"/></filter>
+          </defs>
+          <path d="M0 40 C200 0 400 80 600 40 C800 0 1000 80 1200 40 L1200 80 L0 80 Z" fill="url(#g1)" opacity="0.95">
+            <animate attributeName="d" dur="6s" repeatCount="indefinite"
+              values="
+                M0 40 C200 0 400 80 600 40 C800 0 1000 80 1200 40 L1200 80 L0 80 Z;
+                M0 44 C200 84 400 10 600 44 C800 84 1000 10 1200 44 L1200 80 L0 80 Z;
+                M0 40 C200 0 400 80 600 40 C800 0 1000 80 1200 40 L1200 80 L0 80 Z"/>
+          </path>
+        </svg>
+      </div>
 
-function downloadCard() {
-  html2canvas(document.getElementById('card')).then(canvas => {
-    const link = document.createElement('a');
-    link.download = 'IndependenceCard.png';
-    link.href = canvas.toDataURL();
-    link.click();
-  });
-}
+      <!-- controls -->
+      <section class="controls" id="controls">
+        <div style="display:flex; justify-content:space-between; align-items:center">
+          <div class="tiny">Theme</div>
+          <div class="themes" id="themeBtns">
+            <div class="theme-dot" id="theme-classic" title="Classic" style="background:linear-gradient(90deg,#FF9933,#fff,#138808)"></div>
+            <div class="theme-dot" id="theme-modern" title="Modern" style="background:linear-gradient(90deg,#fff,#0b2a66)"></div>
+            <div class="theme-dot" id="theme-min" title="Minimal" style="background:#0b2a66"></div>
+          </div>
+        </div>
 
-function shareCard() {
-  html2canvas(document.getElementById('card')).then(canvas => {
-    canvas.toBlob(blob => {
-      const file = new File([blob], 'IndependenceCard.png', { type: 'image/png' });
-      const shareData = {
-        files: [file],
-        text: `Wishing you a very Happy 79th Independence Day!\nLet us honour our nation’s past and work for a brighter future.\n🇮🇳 Jai Hind 🇮🇳`,
-        title: 'Happy Independence Day'
-      };
-      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share(shareData);
+        <div class="row">
+          <div class="col">
+            <label for="name">Full name</label>
+            <input id="name" type="text" placeholder="e.g., Asha Sharma" maxlength="40"/>
+          </div>
+          <div style="width:120px">
+            <label for="mobile">Mobile (optional)</label>
+            <input id="mobile" type="text" inputmode="numeric" placeholder="9876xxxxxx"/>
+          </div>
+        </div>
+
+        <div>
+          <label for="photo">Upload photo (square preferred)</label>
+          <input id="photo" type="file" accept="image/*"/>
+          <div class="tiny">You can crop the photo to fit the ID frame.</div>
+        </div>
+
+        <div>
+          <label for="greeting">Custom Greeting (optional)</label>
+          <textarea id="greeting" placeholder="Write a formal greeting to be added when sharing."></textarea>
+        </div>
+
+        <div style="display:flex; gap:8px; align-items:center">
+          <button class="btn ghost" id="btnReset">Reset</button>
+          <div class="tiny" style="margin-left:auto">Auto-saved locally • No upload</div>
+        </div>
+      </section>
+
+      <!-- preview -->
+      <section class="preview-wrap" aria-live="polite">
+        <div id="card" class="card" role="img" aria-label="Independence Day card preview">
+          <div class="chakra-wrap">
+            <!-- SVG Ashoka Chakra rotating -->
+            <svg class="chakra" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="60" cy="60" r="40" fill="none" stroke="#0b2a66" stroke-width="5"></circle>
+              <g stroke="#0b2a66" stroke-width="2" transform="translate(60,60)">
+                <g id="sp"><line x1="0" y1="-40" x2="0" y2="-6"/></g>
+                <!-- 24 spokes -->
+                <use href="#sp"/><use href="#sp" transform="rotate(15)"/><use href="#sp" transform="rotate(30)"/><use href="#sp" transform="rotate(45)"/>
+                <use href="#sp" transform="rotate(60)"/><use href="#sp" transform="rotate(75)"/><use href="#sp" transform="rotate(90)"/><use href="#sp" transform="rotate(105)"/>
+                <use href="#sp" transform="rotate(120)"/><use href="#sp" transform="rotate(135)"/><use href="#sp" transform="rotate(150)"/><use href="#sp" transform="rotate(165)"/>
+                <use href="#sp" transform="rotate(180)"/><use href="#sp" transform="rotate(195)"/><use href="#sp" transform="rotate(210)"/><use href="#sp" transform="rotate(225)"/>
+                <use href="#sp" transform="rotate(240)"/><use href="#sp" transform="rotate(255)"/><use href="#sp" transform="rotate(270)"/><use href="#sp" transform="rotate(285)"/>
+                <use href="#sp" transform="rotate(300)"/><use href="#sp" transform="rotate(315)"/><use href="#sp" transform="rotate(330)"/><use href="#sp" transform="rotate(345)"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="card-inner" id="cardInner">
+            <div class="left">
+              <div style="display:flex; align-items:center; justify-content:space-between">
+                <div class="small-tag">ID CARD</div>
+                <div class="chip" aria-hidden></div>
+              </div>
+
+              <div style="margin-top:6px">
+                <div class="title-large" id="outName">A. Sharma</div>
+                <div class="id-row"><div class="tiny">ID:</div><div id="outId" style="margin-left:6px">00000000</div></div>
+              </div>
+
+              <div style="flex:1"></div>
+
+              <div class="motto" id="outMotto">सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा</div>
+            </div>
+
+            <div class="right">
+              <div class="photo-frame">
+                <img id="outPhoto" class="photo" src="" alt="your photo"/>
+              </div>
+              <svg class="stamp" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="60" cy="60" r="56" fill="none" stroke="#0b2a66" stroke-width="4"/>
+                <text x="50%" y="54%" text-anchor="middle" fill="#0b2a66" font-size="10" font-weight="700">APPROVED</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- result / qr area -->
+      <section>
+        <div style="display:flex; gap:8px; align-items:center">
+          <button class="btn primary" id="btnDownload">Download PNG</button>
+          <button class="btn" id="btnShareNative">Share (phone)</button>
+          <button class="btn ghost" id="btnShareWA">Share via WhatsApp</button>
+        </div>
+        <div style="margin-top:10px; display:flex; gap:10px; align-items:center">
+          <div class="tiny">Card link (for tracking/shares):</div>
+          <div class="tiny" id="shortLink" style="background:rgba(255,255,255,.02); padding:6px 8px; border-radius:8px;"></div>
+        </div>
+      </section>
+
+      <!-- hidden area for cropper modal -->
+      <div id="cropModal" style="display:none; position:fixed; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.8)); z-index:9999; align-items:center; justify-content:center; padding:16px">
+        <div style="width:100%; max-width:420px; background:#071226; padding:12px; border-radius:12px">
+          <div style="display:flex; justify-content:space-between; align-items:center">
+            <div style="color:var(--muted); font-size:14px">Crop your photo</div>
+            <div><button id="cropCancel" class="btn ghost">Cancel</button></div>
+          </div>
+          <div style="margin-top:10px"><img id="cropImg" style="max-width:100%; display:block;"/></div>
+          <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:10px">
+            <button id="cropBtn" class="btn primary">Apply</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- sticky action bar -->
+    <div class="action-bar" role="toolbar" aria-label="Actions">
+      <button class="btn ghost" id="btnThemeToggle">Theme</button>
+      <button class="btn" id="btnEditGreeting">Edit Greeting</button>
+      <button class="btn primary" id="btnQuickShare">Quick Share</button>
+    </div>
+
+  </div>
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/cropperjs@1.5.13/dist/cropper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
+
+  <script>
+  (function(){
+    // Elements
+    const nameEl = document.getElementById('name');
+    const mobileEl = document.getElementById('mobile');
+    const photoEl = document.getElementById('photo');
+    const greetingEl = document.getElementById('greeting');
+    const outName = document.getElementById('outName');
+    const outId = document.getElementById('outId');
+    const outMotto = document.getElementById('outMotto');
+    const outPhoto = document.getElementById('outPhoto');
+    const card = document.getElementById('card');
+    const cardInner = document.getElementById('cardInner');
+    const btnDownload = document.getElementById('btnDownload');
+    const btnShareNative = document.getElementById('btnShareNative');
+    const btnShareWA = document.getElementById('btnShareWA');
+    const shortLink = document.getElementById('shortLink');
+    const themeClassic = document.getElementById('theme-classic');
+    const themeModern = document.getElementById('theme-modern');
+    const themeMin = document.getElementById('theme-min');
+    const themeBtns = document.getElementById('themeBtns');
+    const btnReset = document.getElementById('btnReset');
+    const desktopOverlay = document.getElementById('desktopOverlay');
+    const desktopQR = document.getElementById('desktopQR');
+    const shortUrlSpan = document.getElementById('shortUrl');
+    const cropModal = document.getElementById('cropModal');
+    const cropImg = document.getElementById('cropImg');
+    const cropBtn = document.getElementById('cropBtn');
+    const cropCancel = document.getElementById('cropCancel');
+    const btnQuickShare = document.getElementById('btnQuickShare');
+    const btnEditGreeting = document.getElementById('btnEditGreeting');
+    const btnThemeToggle = document.getElementById('btnThemeToggle');
+
+    // cropper
+    let cropper = null;
+    let lastCroppedDataUrl = '';
+
+    // generate unique share token (persistent)
+    let shareToken = localStorage.getItem('shareToken') || null;
+    if(!shareToken){ shareToken = Math.random().toString(36).slice(2,10); localStorage.setItem('shareToken', shareToken); }
+
+    // utility sanitize
+    const sanitize = s => (s||'').toString().trim();
+
+    // detect mobile vs desktop
+    const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    function showDesktopOverlay(){
+      // create a short URL and QR (use current location if hosted; else show placeholder)
+      const url = location.href;
+      desktopOverlay.style.display = 'flex';
+      shortUrlSpan.textContent = (location.hostname || 'open on phone');
+      // generate QR
+      QRCode.toCanvas(desktopQR, url, {width:160}).catch(()=>{ desktopQR.innerText = url;});
+    }
+    if(!isMobile) showDesktopOverlay();
+
+    // load saved inputs
+    const saved = JSON.parse(localStorage.getItem('cardData') || '{}');
+    if(saved.name) nameEl.value = saved.name;
+    if(saved.mobile) mobileEl.value = saved.mobile;
+    if(saved.greeting) greetingEl.value = saved.greeting;
+    if(saved.photoData) { outPhoto.src = saved.photoData; lastCroppedDataUrl = saved.photoData; }
+    // theme
+    let currentTheme = localStorage.getItem('theme') || 'classic';
+    function applyTheme(t){
+      currentTheme = t; localStorage.setItem('theme', t);
+      // change card background simplified: class-based
+      if(t==='classic'){
+        card.style.background = 'linear-gradient(180deg, rgba(255,153,51,.95) 0%, rgba(255,255,255,1) 49%, rgba(19,136,8,.95) 100%)';
+      } else if(t==='modern'){
+        card.style.background = 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(11,42,86,1) 100%)';
       } else {
-        window.location.href = `https://wa.me/?text=${encodeURIComponent(shareData.text)}`;
+        card.style.background = 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(8,12,20,1) 100%)';
       }
+      // mark active
+      document.querySelectorAll('.theme-dot').forEach(d=>d.classList.remove('active'));
+      if(t==='classic') themeClassic.classList.add('active');
+      if(t==='modern') themeModern.classList.add('active');
+      if(t==='min') themeMin.classList.add('active');
+    }
+    applyTheme(currentTheme);
+
+    // auto update preview as typing (live preview)
+    function updatePreview(){
+      const name = sanitize(nameEl.value) || 'Your Name';
+      outName.textContent = name;
+      fitNameFontSize(name);
+      const mobile = sanitize(mobileEl.value);
+      outId.textContent = mobile ? mobile.slice(-8) : ('ID-' + shareToken.slice(0,6));
+      outMotto.textContent = sanitize(greetingEl.value) || 'सारे जहाँ से अच्छा हिन्दोस्ताँ हमारा';
+      // save state
+      localStorage.setItem('cardData', JSON.stringify({ name:nameEl.value, mobile:mobileEl.value, greeting:greetingEl.value, photoData:lastCroppedDataUrl }));
+      // create share short link (with token)
+      const link = location.href.split('#')[0] + '?t=' + shareToken;
+      shortLink.textContent = link;
+      // set title/meta? not required dynamically
+    }
+    nameEl.addEventListener('input', updatePreview);
+    mobileEl.addEventListener('input', updatePreview);
+    greetingEl.addEventListener('input', updatePreview);
+
+    // dynamic font resize for long names
+    function fitNameFontSize(name){
+      const el = outName;
+      const base = 20; // px
+      const len = name.length;
+      const size = len > 18 ? Math.max(12, base - (len-18)*0.6) : base;
+      el.style.fontSize = size + 'px';
+    }
+
+    // image crop flow
+    photoEl.addEventListener('change', (e)=>{
+      const file = e.target.files[0];
+      if(!file) return;
+      if(!file.type.startsWith('image/')) { alert('Select an image file'); return; }
+      const reader = new FileReader();
+      reader.onload = () => {
+        cropImg.src = reader.result;
+        cropModal.style.display = 'flex';
+        // init cropper
+        if(cropper) cropper.destroy();
+        cropper = new Cropper(cropImg, { aspectRatio: 3/4, viewMode:1, dragMode:'move', background:false, autoCropArea:1 });
+      };
+      reader.readAsDataURL(file);
     });
-  });
-}
-</script>
+
+    cropCancel.addEventListener('click', ()=>{
+      cropModal.style.display='none';
+      if(cropper){ cropper.destroy(); cropper = null; }
+    });
+
+    cropBtn.addEventListener('click', ()=>{
+      if(!cropper) return;
+      const canvas = cropper.getCroppedCanvas({ width:720, height:960, imageSmoothingQuality:'high' });
+      const circleCanvas = document.createElement('canvas');
+      const size = Math.min(canvas.width, canvas.height);
+      circleCanvas.width = size; circleCanvas.height = size;
+      const ctx = circleCanvas.getContext('2d');
+      // draw as rounded rect/circle mask
+      ctx.beginPath(); ctx.arc(size/2, size/2, size/2, 0, Math.PI*2); ctx.closePath(); ctx.clip();
+      ctx.drawImage(canvas, (size - canvas.width)/2, (size - canvas.height)/2);
+      const dataUrl = circleCanvas.toDataURL('image/jpeg', 0.92);
+      lastCroppedDataUrl = dataUrl;
+      outPhoto.src = dataUrl;
+      // save & close
+      updatePreview();
+      localStorage.setItem('cardData', JSON.stringify({ name:nameEl.value, mobile:mobileEl.value, greeting:greetingEl.value, photoData:lastCroppedDataUrl }));
+      cropModal.style.display='none';
+      cropper.destroy(); cropper = null;
+    });
+
+    // download card as PNG using html2canvas
+    async function renderCardDataUrl(){
+      // add a temporary zoom animation
+      card.classList.add('zoom');
+      await new Promise(r=>setTimeout(r,120));
+      // html2canvas; ensure background and quality
+      const scale = Math.min(2, window.devicePixelRatio || 2);
+      const canvas = await html2canvas(card, { backgroundColor:null, scale });
+      card.classList.remove('zoom');
+      return canvas.toDataURL('image/png');
+    }
+
+    btnDownload.addEventListener('click', async ()=>{
+      try{
+        const dataUrl = await renderCardDataUrl();
+        const a = document.createElement('a');
+        a.href = dataUrl; a.download = `IndependenceCard_${(nameEl.value||'card').replace(/\s+/g,'_')}.png`;
+        document.body.appendChild(a); a.click(); a.remove();
+      }catch(e){ alert('Failed to create image: ' + e.message); }
+    });
+
+    // share: try Web Share Level 2 with files
+    btnShareNative.addEventListener('click', async ()=>{
+      await shareWithNative();
+    });
+    btnQuickShare.addEventListener('click', async ()=>{ await shareWithNative(); });
+
+    async function shareWithNative(){
+      if(!isMobile){ alert('Open on a mobile device to use native share.'); return; }
+      if(!nameEl.value){ alert('Please enter your name first.'); nameEl.focus(); return; }
+      try{
+        const dataUrl = await renderCardDataUrl();
+        const blob = dataURLtoBlob(dataUrl);
+        const file = new File([blob], `IndependenceCard_${(nameEl.value||'card').replace(/\s+/g,'_')}.png`, { type:'image/png' });
+        const text = sanitize(greetingEl.value) || `Wishing you a very Happy 79th Independence Day!\\nLet us unite to honour our nation's past and work for a brighter future.\\n🇮🇳 Jai Hind!`;
+        const shareData = { files:[file], text, title:'Independence Day Wishes' };
+
+        if(navigator.canShare && navigator.canShare({ files:[file] }) && navigator.share){
+          await navigator.share(shareData);
+          registerShareEvent('native');
+        } else {
+          // fallback to whatsapp text + link
+          shareViaWhatsApp(text);
+        }
+      }catch(err){
+        console.error(err);
+        shareViaWhatsApp(sanitize(greetingEl.value) || 'Wishing you a very Happy 79th Independence Day! Jai Hind!');
+      }
+    }
+
+    // WhatsApp fallback (text + link)
+    btnShareWA.addEventListener('click', ()=>{
+      const text = sanitize(greetingEl.value) || `Wishing you a very Happy 79th Independence Day! Let us unite to honour our nation's past and work for a brighter future. 🇮🇳 Jai Hind!`;
+      shareViaWhatsApp(text);
+    });
+
+    function shareViaWhatsApp(text){
+      const link = shortLink.textContent || (location.href.split('#')[0] + '?t=' + shareToken);
+      const full = text + '\\n' + link;
+      const wa = 'https://wa.me/?text=' + encodeURIComponent(full);
+      window.open(wa, '_blank');
+      registerShareEvent('whatsapp');
+    }
+
+    function dataURLtoBlob(dataurl){
+      const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1];
+      const bstr = atob(arr[1]); let n = bstr.length; const u8arr = new Uint8Array(n);
+      while(n--) u8arr[n] = bstr.charCodeAt(n);
+      return new Blob([u8arr], {type:mime});
+    }
+
+    // theme switching
+    themeClassic.addEventListener('click', ()=>applyTheme('classic'));
+    themeModern.addEventListener('click', ()=>applyTheme('modern'));
+    themeMin.addEventListener('click', ()=>applyTheme('min'));
+    btnThemeToggle.addEventListener('click', ()=>{ const next = currentTheme==='classic' ? 'modern' : currentTheme==='modern' ? 'min' : 'classic'; applyTheme(next); });
+
+    // edit greeting via modal-like prompt (simple)
+    btnEditGreeting.addEventListener('click', ()=>{ greetingEl.focus(); });
+
+    // reset
+    btnReset.addEventListener('click', ()=>{
+      if(confirm('Reset all inputs and saved data?')){ localStorage.removeItem('cardData'); localStorage.removeItem('shareToken'); nameEl.value=''; mobileEl.value=''; greetingEl.value=''; outPhoto.src=''; lastCroppedDataUrl=''; updatePreview(); }
+    });
+
+    // initial update
+    updatePreview();
+
+    // share analytics stub (register share method) — optional: you can send this token to your analytics endpoint
+    function registerShareEvent(method){
+      // Example: send fetch to your analytics endpoint
+      // fetch('https://your-analytics.example/track', {method:'POST', body: JSON.stringify({token:shareToken, method})});
+      // We just console.log for now
+      console.log('Shared via', method, 'token:', shareToken);
+    }
+
+    // keyboard / accessibility: keyboard enter triggers share on mobile? usually not needed.
+
+    // produce desktop QR if needed
+    if(!isMobile){
+      // QR of current URL
+      QRCode.toCanvas(desktopQR, location.href).catch(()=>{ desktopQR.textContent = location.href; });
+      desktopOverlay.style.display = 'flex';
+    }
+
+    // ensure preview refresh periodically for changes in photo saved
+    const observer = new MutationObserver(updatePreview);
+    observer.observe(outPhoto, { attributes:true, attributeFilter:['src'] });
+
+    // expose updatePreview to global (for debug)
+    window.updatePreview = updatePreview;
+
+    // small UX: animate card on load
+    setTimeout(()=>{ card.classList.add('zoom'); setTimeout(()=>card.classList.remove('zoom'),600); }, 600);
+
+    // On initial load, if no photo, show placeholder
+    if(!outPhoto.src) outPhoto.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 400'><rect width='100%' height='100%' fill='#f1f5f9'/><text x='50%' y='50%' font-family='Poppins, Arial' font-size='18' fill='#94a3b8' text-anchor='middle' dominant-baseline='middle'>Upload photo</text></svg>`);
+  })();
+  </script>
 </body>
 </html>
-

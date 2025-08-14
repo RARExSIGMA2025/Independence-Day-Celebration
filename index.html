@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Satyadev College — Simple Site</title>
+  <meta name="description" content="A clean, single-page website template in pure HTML, CSS, and a bit of JavaScript." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text x='50' y='60' font-size='60' text-anchor='middle'>S</text></svg>">
+  <style>
+    :root{
+      --bg: #0f172a; /* slate-900 */
+      --panel: #111827; /* gray-900 */
+      --text: #e5e7eb; /* gray-200 */
+      --muted: #94a3b8; /* slate-400 */
+      --brand: #22c55e; /* green-500 */
+      --brand-2: #06b6d4; /* cyan-500 */
+      --ring: rgba(34,197,94,.4);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, "Noto Sans", sans-serif;
+  color:var(--text); background: radial-gradient(1200px 700px at 10% -10%, rgba(34,197,94,.08), transparent 40%),
+           radial-gradient(900px 600px at 110% 10%, rgba(6,182,212,.08), transparent 40%), var(--bg);
+}
+
+/* Header */
+header{
+  position:sticky; top:0; z-index:20; backdrop-filter: blur(8px);
+  background: linear-gradient(0deg, rgba(17,24,39,.75), rgba(17,24,39,.75));
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.wrap{max-width:1100px; margin-inline:auto; padding: 0 16px}
+.row{display:flex; align-items:center; justify-content:space-between; gap:12px}
+.brand{display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.3px}
+.brand-logo{
+  width:36px; height:36px; display:grid; place-items:center; border-radius:10px;
+  background: linear-gradient(135deg, var(--brand), var(--brand-2));
+  color:#001; font-weight:900; box-shadow: var(--shadow);
+}
+
+nav a{color:var(--text); text-decoration:none; padding:10px 12px; border-radius:10px; font-size:14px}
+nav a:hover{background:rgba(255,255,255,.06)}
+.menu{display:flex; gap:6px}
+.menu-btn{display:none}
+
+@media (max-width:860px){
+  .menu{display:none}
+  .menu.open{display:flex; flex-direction:column; position:absolute; right:16px; top:64px; background:var(--panel); padding:10px; border-radius:12px; box-shadow:var(--shadow); width:min(92vw, 320px)}
+  .menu-btn{display:inline-flex; align-items:center; gap:8px; padding:10px 12px; border-radius:10px; border:1px solid rgba(255,255,255,.08); background:transparent; color:var(--text)}
+}
+
+/* Hero */
+.hero{padding: 80px 0 50px}
+.hero .inner{display:grid; grid-template-columns: 1.2fr 1fr; gap:28px; align-items:center}
+.badge{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-size:12px; color:var(--muted)}
+.title{font-size: clamp(28px, 4.5vw, 56px); line-height:1.04; margin:12px 0}
+.lead{color: var(--muted); font-size: clamp(14px, 2vw, 18px)}
+.cta{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap}
+.btn{display:inline-flex; align-items:center; gap:8px; padding:12px 16px; border-radius:12px; border:1px solid rgba(255,255,255,.08); text-decoration:none; color:var(--text)}
+.btn.primary{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#002; font-weight:700}
+
+.card{background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06); border-radius:var(--radius); box-shadow:var(--shadow)}
+.preview{aspect-ratio: 16 / 11; border-radius:var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.06)}
+.preview img{width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05)}
+
+/* Sections */
+section{padding:60px 0}
+h2{font-size: clamp(22px, 3.5vw, 34px); margin:0 0 10px}
+p{line-height:1.6}
+
+.grid-3{display:grid; grid-template-columns: repeat(3, 1fr); gap:16px}
+.grid-2{display:grid; grid-template-columns: repeat(2, 1fr); gap:16px}
+@media (max-width:860px){
+  .hero .inner{grid-template-columns:1fr}
+  .grid-3, .grid-2{grid-template-columns:1fr}
+}
+
+.feature{padding:18px; border-radius:16px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.06)}
+.feature h3{margin:6px 0 6px; font-size:18px}
+.feature p{margin:0; color:var(--muted)}
+
+/* Gallery */
+.gallery{display:grid; grid-template-columns: repeat(3, 1fr); gap:10px}
+.gallery img{width:100%; height:180px; object-fit:cover; border-radius:12px; border:1px solid rgba(255,255,255,.08)}
+@media (max-width:700px){.gallery{grid-template-columns:1fr 1fr}}
+
+/* Contact */
+form{display:grid; gap:12px; margin-top:10px}
+label{font-size:14px; color:var(--muted)}
+input, textarea, select{
+  width:100%; padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.03); color:var(--text)
+}
+input:focus, textarea:focus, select:focus{outline:2px solid var(--ring); border-color:transparent}
+
+/* Footer */
+footer{padding:36px 0; border-top:1px solid rgba(255,255,255,.08); color:var(--muted)}
+.credits a{color:inherit}
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="wrap">
+      <div class="row" style="height:64px">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="brand-logo" aria-hidden="true">S</span>
+          <span>Satyadev College</span>
+        </a>
+        <button class="menu-btn" aria-expanded="false" aria-controls="navMenu" id="menuBtn">☰ Menu</button>
+        <nav id="navMenu" class="menu" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#courses">Courses</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>  <!-- Hero -->  <main id="top" class="hero">
+    <div class="wrap">
+      <div class="inner">
+        <div>
+          <span class="badge">🎓 Welcome to Satyadev College</span>
+          <h1 class="title">A simple, modern website template you can edit in minutes.</h1>
+          <p class="lead">Built with pure HTML/CSS and a tiny sprinkle of JavaScript. Replace text, drop in your photos, and you’re live.</p>
+          <div class="cta">
+            <a class="btn primary" href="#contact">Get in touch</a>
+            <a class="btn" href="#courses">Browse courses</a>
+          </div>
+        </div>
+        <div class="card preview">
+          <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1400&auto=format&fit=crop" alt="Campus building" />
+        </div>
+      </div>
+    </div>
+  </main>  <!-- About -->  <section id="about">
+    <div class="wrap">
+      <h2>About Us</h2>
+      <p>Founded with a focus on quality education and student-first values, Satyadev College offers industry-aligned programs, experienced faculty, and a vibrant campus life. This is placeholder content — change it to your own story.</p>
+      <div class="grid-3" style="margin-top:16px">
+        <div class="feature">
+          <div>🏫</div>
+          <h3>Modern Campus</h3>
+          <p>Smart classrooms, library, and labs to support hands-on learning.</p>
+        </div>
+        <div class="feature">
+          <div>👩‍🏫</div>
+          <h3>Experienced Faculty</h3>
+          <p>Mentors who care about your growth in and beyond the classroom.</p>
+        </div>
+        <div class="feature">
+          <div>🎯</div>
+          <h3>Career Support</h3>
+          <p>Training, internships, and placement assistance for top industries.</p>
+        </div>
+      </div>
+    </div>
+  </section>  <!-- Courses / Services -->  <section id="courses">
+    <div class="wrap">
+      <h2>Programs & Courses</h2>
+      <p>List your departments or flagship programs here. You can also link to PDFs or forms.</p>
+      <div class="grid-2" style="margin-top:16px">
+        <div class="feature">
+          <h3>B.Pharm (Bachelor of Pharmacy)</h3>
+          <p>4-year program focused on pharmaceutical sciences, clinical skills, and research.</p>
+        </div>
+        <div class="feature">
+          <h3>D.Pharm (Diploma in Pharmacy)</h3>
+          <p>2-year diploma preparing students for roles in community and hospital pharmacy.</p>
+        </div>
+        <div class="feature">
+          <h3>Short-Term Skill Courses</h3>
+          <p>Add-on certifications in medical coding, pharmacovigilance, and more.</p>
+        </div>
+        <div class="feature">
+          <h3>Admissions 2025</h3>
+          <p>Download the <a href="#" style="color:var(--brand)">prospectus</a> • <a href="#" style="color:var(--brand)">Apply Now</a></p>
+        </div>
+      </div>
+    </div>
+  </section>  <!-- Gallery -->  <section id="gallery">
+    <div class="wrap">
+      <h2>Gallery</h2>
+      <div class="gallery" style="margin-top:12px">
+        <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1200&auto=format&fit=crop" alt="Students studying together">
+        <img src="https://images.unsplash.com/photo-1517520287167-4bbf64a00d66?q=80&w=1200&auto=format&fit=crop" alt="Laboratory equipment">
+        <img src="https://images.unsplash.com/photo-1523580846011-85a6ca51036c?q=80&w=1200&auto=format&fit=crop" alt="Campus corridor">
+        <img src="https://images.unsplash.com/photo-1460518451285-97b6aa326961?q=80&w=1200&auto=format&fit=crop" alt="Library shelves">
+        <img src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=1200&auto=format&fit=crop" alt="Classroom lecture">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop" alt="Campus building">
+      </div>
+    </div>
+  </section>  <!-- Contact -->  <section id="contact">
+    <div class="wrap">
+      <h2>Contact Us</h2>
+      <p>Have questions about admissions or programs? Send us a message.</p>
+      <div class="grid-2" style="margin-top:12px; align-items:start">
+        <form onsubmit="event.preventDefault(); alert('Thanks! Your message has been received.');">
+          <div>
+            <label for="name">Full Name</label>
+            <input id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required>
+          </div>
+          <div>
+            <label for="program">Interested Program</label>
+            <select id="program" name="program">
+              <option>B.Pharm</option>
+              <option>D.Pharm</option>
+              <option>Short-Term Course</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Type your query..."></textarea>
+          </div>
+          <button class="btn primary" type="submit">Send Message</button>
+        </form>
+        <div class="card" style="padding:16px">
+          <h3 style="margin-top:0">Campus</h3>
+          <p>
+            Satyadev College<br>
+            Yusufpur, Ghazipur, Uttar Pradesh
+          </p>
+          <p>
+            📞 <a href="tel:+91-8000000000" style="color:var(--text)">+91 80 0000 0000</a><br>
+            ✉️ <a href="mailto:info@satyadevcollege.edu" style="color:var(--text)">info@satyadevcollege.edu</a>
+          </p>
+          <p style="color:var(--muted); font-size:14px">Office Hours: Mon–Sat, 10:00 AM – 4:00 PM</p>
+        </div>
+      </div>
+    </div>
+  </section>  <footer>
+    <div class="wrap row">
+      <div class="credits">© <span id="year"></span> Satyadev College. All rights reserved.</div>
+      <div class="credits">Built with ❤ using plain HTML + CSS.</div>
+    </div>
+  </footer>  <script>
+    // Mobile menu toggle
+    const btn = document.getElementById('menuBtn');
+    const nav = document.getElementById('navMenu');
+    btn.addEventListener('click', ()=>{
+      const open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script></body>
+</html>
